@@ -70,7 +70,11 @@ app.post("/api/cart/validate", validateApiKey, (req, res) => {
   res.json({ items: validated, total });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Store: ${STORE_NAME}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Store: ${STORE_NAME}`);
+  });
+}
+
+module.exports = app;
