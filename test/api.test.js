@@ -1,6 +1,9 @@
 const { test, after } = require("node:test");
 const assert = require("node:assert/strict");
 const http = require("node:http");
+const TEST_API_KEY = "test-api-key";
+process.env.API_SECRET_KEY = TEST_API_KEY;
+
 const app = require("../server");
 
 const server = http.createServer(app);
@@ -87,7 +90,7 @@ test("POST /api/cart/validate rejects an invalid cart payload", async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.API_SECRET_KEY,
+        "x-api-key": TEST_API_KEY,
       },
       body: JSON.stringify({ items: "not-an-array" }),
     }
@@ -108,7 +111,7 @@ test("POST /api/cart/validate calculates a valid cart total", async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.API_SECRET_KEY,
+        "x-api-key": TEST_API_KEY,
       },
       body: JSON.stringify({ items: [{ id: 1, quantity: 1 }] }),
     }
@@ -131,7 +134,7 @@ test("POST /api/cart/validate rejects quantities exceeding stock", async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.API_SECRET_KEY,
+        "x-api-key": TEST_API_KEY,
       },
       body: JSON.stringify({ items: [{ id: 1, quantity: 999 }] }),
     }
