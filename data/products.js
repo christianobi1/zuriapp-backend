@@ -47,7 +47,7 @@ const products = [
     stock: 15,
     badge: null,
     description: "Stonewashed European linen. Gets softer with every wash.",
-    image: "https://images.unsplash.com/photo-1600369671854-5a77c585b49e?w=500&q=80",
+    image: "/images/linen-throw-blanket-1.webp",
   },
   {
     id: 6,
