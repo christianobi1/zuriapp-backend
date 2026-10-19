@@ -12,8 +12,8 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Lint and Test Backend
+  test-and-scan:
+    name: Lint, Test, and Security Scan
     runs-on: ubuntu-latest
 
     steps:
@@ -34,3 +34,13 @@ jobs:
 
       - name: Run API tests
         run: npm test
+
+      - name: Run Trivy filesystem vulnerability scan
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
